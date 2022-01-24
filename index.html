@@ -1,16 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Current Weather</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>Current Weather - OOP</title>
 </head>
 <body>
 	<div id="weather">
 		<div id="description"></div>
 		<h1 id="temp"></h1>
-		<div id="location"></div>
+		<div id="feels-like"></div>
+		<h3 id="temp-min"></h3>
+		<h3 id="temp-max"></h3>
+		<div id="wind"></div>
+		<h1 id="location"></h1>
 	</div>
-	<script type="text/javascript" src="app.js"></script>
+	<br>
+	<br>
+	<form id="vorm">
+    	<input id="change-city" type="text">
+        <input type="submit" value="Muuda linna" Class="btn">
+     </form>
+    <script src="class/localstorage.js"></script>
+	<script src="class/getweather.js"></script>
+	<script src="class/ui.js"></script>
+	<script src="app.js"></script>
 </body>
 </html>

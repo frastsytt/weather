@@ -1,27 +1,29 @@
-document.addEventListener('DOMContentLoaded', cityWeather);
+const ls = new LS();
 
-function weatherDataFetch(city){
-	var key = '92a629b34a977a36d03269c986372045'
-	fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`)
-	.then(function(resp){
-		return resp.json()
+const weatherLocation = ls.getLocationData();
+
+const weather = new Weather(weatherLocation);
+
+const ui = new UI();
+
+const form = document.querySelector("form");
+form.addEventListener("submit", newCity)
+
+function newCity(){
+	const city = document.querySelector("#change-city").value;
+	weather.changeCity(city);
+	ls.setLocationData(city);
+	getWeather();
+	event.preventDefault();
+	document.querySelector("#change-city").value = ""
+}
+
+function getWeather() {
+	weather.getWeather()
+	.then(data => {
+		ui.drawWeather(data)
 	})
-	.then(function(data){
-		console.log(data);
-		drawWeather(data);
-	})
-	.catch(function(){
-
-	});
+	.catch(error => console.log(error))
 }
 
-function cityWeather(e){
-	weatherDataFetch('Tallinn');
-}
-
-function drawWeather(data){
-	var celcius = Math.round(parseFloat(data.main.temp)-273.15);
-	document.querySelector('#description').innerHTML = data.weather[0].description;
-	document.querySelector('#temp').innerHTML = celcius + '&deg;';
-	document.querySelector('#location').innerHTML = data.name;
-}
+getWeather()
